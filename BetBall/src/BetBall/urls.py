@@ -1,8 +1,8 @@
-from django.conf.urls.defaults import *
-from BetBall.bet.page import *
-from BetBall.bet.votepage import goVotePage, goNewVotePage
 from BetBall.bet.adminpage import *
+from BetBall.bet.page import *
+from BetBall.bet.votepage import goVotePage, goNewVotePage, saveOrUpdateVote
 from BetBall.bet.weibopage import *
+from django.conf.urls.defaults import *
 import os
 import settings
 
@@ -54,6 +54,7 @@ urlpatterns = patterns('',
      (r'^refreshMatches/', refreshMatches),
      (r'^goVote/',goVotePage),
      (r'^newVote/',goNewVotePage),
+     (r'^saveOrUpdateVote/',saveOrUpdateVote),
      (r'^image/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.dirname(globals()["__file__"]) + '/image'}),
      (r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.dirname(globals()["__file__"]) + '/html/files'})
     # Uncomment the admin/doc line below to enable admin documentation:

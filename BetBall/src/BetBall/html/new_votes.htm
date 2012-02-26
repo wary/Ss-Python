@@ -8,6 +8,16 @@
 <meta name="robots" content="INDEX,FOLLOW" />
 <script type="text/javascript">
 	var count = 1;
+	
+	
+	window.onload = function()
+	{
+		result = document.getElementById("result").value
+		if(nullCheck(result))
+		{
+			alert(result)
+		}
+	}
 		
 	var addSubVote = function()
 	{
@@ -67,9 +77,8 @@
 	
 	var nullCheck = function(value)
 	{
-		var patrn = /" "*/
-		alert(patrn.exec(" "))
-		if(value == null || value == "")
+		var patrn = /^\s*$/
+		if(value == null || patrn.exec(value))
 		{
 			return false
 		}
@@ -77,13 +86,31 @@
 		return true;
 	}
 	
+	var numCheck = function(value)
+	{
+		var regExp = /^[1-9]\d*$/
+		if(value == null || !regExp.exec(value))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
 	var check = function()
 	{
-		var voteName = document.getElementById("vote-name")
-		if(!nullCheck(voteName.value))
+		var voteName = document.getElementById("vote-name").value
+		if(!nullCheck(voteName))
 		{
 			alert("vote name can't be null");
 			return false;
+		}
+		
+		var score = document.getElementById("vote-score").value
+		if(!numCheck(score))
+		{
+			alert("score must be a number")
+			return false
 		}
 		
 		return true;
@@ -110,37 +137,39 @@
 <div class="home-col-1">{% include 'vote_left.htm' %}</div>
 <div class="home-col-2">
 <h3 class="h3">new vote</h3>
-<form action="" class="">
+<form action="/saveOrUpdateVote/" method="post">
+<input type="hidden" name="vote-id" value="{{vote.id}}"/>
+<input type="hidden" id="result" value="{{result}}"/>
 <fieldset class="fieldset">
 
 <table id="vote-values">
 	<tr>
 		<td>
-			<label class="label">vote name</label><input class="text-long" name="name" id="vote-name">
+			<label class="label">vote name</label><input class="text-long" name="vote-name" id="vote-name" value="{{vote.name}}">
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<label class="label">dead line</label><input class="text-medium" name="deadline" id="vote-deadline" onclick="WdatePicker()">
+			<label class="label">dead line</label><input class="text-medium" name="vote-deadline" id="vote-deadline" onclick="WdatePicker()" value="{{vote.deadline}}">
 		<td>
 	</tr>
 	<tr>
 		<td>
-			<label class="label">score</label><input class="text-small" name="score" id="vote-score">
+			<label class="label">score</label><input class="text-small" name="vote-score" id="vote-score" value="{{vote.score}}">
 		<td>
 	</tr>
 	<tr>
 		<td><label class="label">state</label>
-			<select name="voteSate">
-                 <option>Select one</option>
-                 <option>Select two</option>
+			<select name="vote-state">
+                 <option value="10">opened</option>
+                 <option value="00">closed</option>
             </select>
         </td>
 	</tr>
 	<tr>
 		<td>
 			<label class="label">memo</label>
-			<textarea cols="1" rows="1" class="textarea" name="memo"></textarea>	
+			<textarea cols="1" rows="1" class="textarea" name="vote-memo"></textarea>	
         </td>
     </tr>
 </table>
@@ -155,7 +184,7 @@
     		<button class="button" type="button" style="margin: 10px 10px 10px 10px" onclick="addSubVote()">
     			<span>Add Sub Vote</span>
     		</button>
-    		<button class="button" type="button" style="margin: 10px 10px 10px 10px" onclick="return check()"><span>Submit</span></button>
+    		<button class="button" type="submit" style="margin: 10px 10px 10px 10px" onclick="return check()"><span>Submit</span></button>
     	</td>
     </tr>
 </table>
