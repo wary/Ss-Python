@@ -5,7 +5,7 @@ class Gambler(models.Model):
     name = models.CharField(max_length=20)
     balance = models.IntegerField(4)
     state = models.CharField(max_length=2)
-    code = models.CharField(max_length=32,null=True)
+    code = models.CharField(max_length=32)
     regtime = models.DateTimeField()
     email=models.CharField(max_length=100)
     password= models.CharField(max_length=32)

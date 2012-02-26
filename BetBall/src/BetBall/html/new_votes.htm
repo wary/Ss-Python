@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<title>Bet for Coke!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Default Description" />
+<meta name="keywords" content="Magento, Varien, E-commerce" />
+<meta name="robots" content="INDEX,FOLLOW" />
+<script type="text/javascript">
+	var count = 1;
+		
+	var addSubVote = function()
+	{
+		var votesTable = document.getElementById("sub-table")
+		if(votesTable == null)
+		{
+			var votesArea = document.getElementById("sub-votes")
+			votesArea.innerHTML = "<table class='table-sub-votes' id='sub-table'><tr >"
+			+"<td><label class='label'>sub-name</label></td>"
+			+"<td><label class='label'>sub-socre</label></td><td></td></tr>"
+			+"</table>" 
+			votesTable = document.getElementById("sub-table")
+		}
+		
+		var newTr = document.createElement("tr")
+		newTr.setAttribute("id",count)
+		votesTable.appendChild(newTr)
+		newTr.innerHTML = "<td><input class='text-medium' name=''></td>"
+		+"<td><input class='text-small' name=''></td>"
+		+"<td><a href="
+		+"javascript:delSubVote('"+count+"')"
+		+">delete</a></td>"
+	}
+	
+	function request(url,callback)
+	{
+		var xmlhttp;
+		var txt,x,i;
+		if (window.XMLHttpRequest)
+ 		{// code for IE7+, Firefox, Chrome, Opera, Safari
+  			xmlhttp=new XMLHttpRequest();
+ 		}
+		else
+  		{// code for IE6, IE5
+ 		 	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+		xmlhttp.onreadystatechange=function()
+  		{
+  			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    		{
+    			xmlDoc=xmlhttp.responseText;
+    			result = xmlDoc
+    			callback(result)
+    		}
+  		}
+		xmlhttp.open("GET",url,true);
+		xmlhttp.send();
+	}
+	
+	var delSubVote = function(id)
+	{
+		votesTable = document.getElementById("sub-votes") 
+		votesTable = votesTable.childNodes[0]
+		node = document.getElementById(id)
+		votesTable.removeChild(node)
+	}
+	
+	var nullCheck = function(value)
+	{
+		var patrn = /" "*/
+		alert(patrn.exec(" "))
+		if(value == null || value == "")
+		{
+			return false
+		}
+		
+		return true;
+	}
+	
+	var check = function()
+	{
+		var voteName = document.getElementById("vote-name")
+		if(!nullCheck(voteName.value))
+		{
+			alert("vote name can't be null");
+			return false;
+		}
+		
+		return true;
+		
+	}
+</script>
+
+<link rel="stylesheet" type="text/css" href="/image/reset.css"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="/image/styles.css"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="/image/clears.css"
+	media="all" />
+<link rel="stylesheet" type="text/css" href="/image/print.css" media="print" />
+<link rel="stylesheet" type="text/css" href="/image/vote.css" />
+</head>
+<body class="cms-index-index cms-home">
+<div class="wrapper">
+<div class="page">{% include 'top.html' %}
+<div class="main col1-layout">
+<div class="main-border">
+<div class="col-main">
+<div class="home-content-wrapper">
+<div class="home-col-1">{% include 'vote_left.htm' %}</div>
+<div class="home-col-2">
+<h3 class="h3">new vote</h3>
+<form action="" class="">
+<fieldset class="fieldset">
+
+<table id="vote-values">
+	<tr>
+		<td>
+			<label class="label">vote name</label><input class="text-long" name="name" id="vote-name">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label class="label">dead line</label><input class="text-medium" name="deadline" id="vote-deadline" onclick="WdatePicker()">
+		<td>
+	</tr>
+	<tr>
+		<td>
+			<label class="label">score</label><input class="text-small" name="score" id="vote-score">
+		<td>
+	</tr>
+	<tr>
+		<td><label class="label">state</label>
+			<select name="voteSate">
+                 <option>Select one</option>
+                 <option>Select two</option>
+            </select>
+        </td>
+	</tr>
+	<tr>
+		<td>
+			<label class="label">memo</label>
+			<textarea cols="1" rows="1" class="textarea" name="memo"></textarea>	
+        </td>
+    </tr>
+</table>
+
+<div id="sub-votes">
+</div>
+
+
+<table>
+	<tr>	
+    	<td>
+    		<button class="button" type="button" style="margin: 10px 10px 10px 10px" onclick="addSubVote()">
+    			<span>Add Sub Vote</span>
+    		</button>
+    		<button class="button" type="button" style="margin: 10px 10px 10px 10px" onclick="return check()"><span>Submit</span></button>
+    	</td>
+    </tr>
+</table>
+
+
+	
+
+</fieldset>
+</form>				
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+{% include 'bottom.html' %}</div>
+</div>
+
+
+</body>
+</html>

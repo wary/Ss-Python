@@ -18,7 +18,6 @@
 	media="all" />
 <link rel="stylesheet" type="text/css" href="/image/print.css"
 	media="print" />
-
 </head>
 <body class="cms-index-index cms-home">
 <div class="wrapper">
@@ -27,47 +26,36 @@
 <div class="main-border">
 <div class="col-main">
 <div class="home-content-wrapper">
-<div class="home-col-1">
-<h2>Lega!</h2>
-<ul>
-	<li><a href="/lega/uefa">欧冠</a></li>
-	<li><a href="/lega/premier">英超</a></li>
-	<li><a href="/lega/legaA">意甲</a></li>
-	<li><a href="/lega/lfp">西甲</a></li>
-	<li><a href="/lega/afc">亚冠</a></li>
-	<li><a href="/lega/csl">中超</a></li>
-</ul>
-</div>
+<div class="home-col-1">{% include 'vote_left.htm' %}</div>
 <div class="home-col-2">
-<h2>Admin Login</h2>
-<form id="loginForm" action="/adminLogin/" method="post">
-{% csrf_token %}
+<h2>{{matchdate}}'s matches</h2>
+<br />
 <table class="products-grid bestselling" id="products-grid-table">
 	<tbody>
 		<tr>
-			<td><label for="username">username:</label> <input
-				name="username" id="username"
-				class="input-text required-entry validate-email" type="text" /></td>
-		</tr>
-		<tr>
-			<td><label for="password">password:</label> <input
-				name="password" id="password"
-				class="input-text required-entry validate-email" type="password" />
-			</td>
-		</tr>
-		<tr>
 			<td>
-			<button type="submit" class="button"><span>Submit</span>
-			</button>
+			<h3>Date</h3>
 			</td>
-		</tr>
-		<tr>
-			<td><a href="/weiboLogin"><img src="/image/sina_login_btn.png"></a>
+			<td>
+			<h3>Match Time</h3>
 			</td>
+			<td>
+			<h3>Lega</h3>
+			</td>
+			<td>
+			<h3>Team</h3>
+			</td>
+			<td>
+			<h3>Water</h3>
+			</td>
+			<td>
+			<h3>result</h3>
+			</td>
+			<td></td>
 		</tr>
+
 	</tbody>
 </table>
-</form>
 </div>
 <div class="clear"></div>
 </div>
@@ -76,5 +64,7 @@
 </div>
 {% include 'bottom.html' %}</div>
 </div>
+
+
 </body>
 </html>

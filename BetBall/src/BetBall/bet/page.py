@@ -113,7 +113,7 @@ def saveRegister(request):
             return result("Email exsited.")
         else:
             name = request.POST['name']
-            gambler = Gambler(name=name,username=username,weibo=weibo,password=pwd.hexdigest(),state='0',regtime=datetime.datetime.now(),balance=0)
+            gambler = Gambler(name=name,username=username,weibo=weibo,password=pwd.hexdigest(),state='1',regtime=datetime.datetime.now(),balance=0)
             gambler.save()
             return result("Please wait for admin to approve your register.")
     else:
