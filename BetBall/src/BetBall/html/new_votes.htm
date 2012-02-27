@@ -6,6 +6,7 @@
 <meta name="description" content="Default Description" />
 <meta name="keywords" content="Magento, Varien, E-commerce" />
 <meta name="robots" content="INDEX,FOLLOW" />
+<script type="text/javascript" src="/image/lei.js"></script>
 <script type="text/javascript">
 	var count = 1;
 	
@@ -25,76 +26,23 @@
 		if(votesTable == null)
 		{
 			var votesArea = document.getElementById("sub-votes")
-			votesArea.innerHTML = "<table class='table-sub-votes' id='sub-table'><tr >"
-			+"<td><label class='label'>sub-name</label></td>"
-			+"<td><label class='label'>sub-socre</label></td><td></td></tr>"
-			+"</table>" 
+			votesArea.innerHTML = getComment("comment-tableHeader")
 			votesTable = document.getElementById("sub-table")
 		}
 		
 		var newTr = document.createElement("tr")
 		newTr.setAttribute("id",count)
+		newTr.innerHTML = getComment("comment-tableRow")
+		tagA = newTr.getElementsByTagName("a")[0]
+		tagA.setAttribute("href","javascript:delSubVote('"+count+"')")
 		votesTable.appendChild(newTr)
-		newTr.innerHTML = "<td><input class='text-medium' name=''></td>"
-		+"<td><input class='text-small' name=''></td>"
-		+"<td><a href="
-		+"javascript:delSubVote('"+count+"')"
-		+">delete</a></td>"
-	}
-	
-	function request(url,callback)
-	{
-		var xmlhttp;
-		var txt,x,i;
-		if (window.XMLHttpRequest)
- 		{// code for IE7+, Firefox, Chrome, Opera, Safari
-  			xmlhttp=new XMLHttpRequest();
- 		}
-		else
-  		{// code for IE6, IE5
- 		 	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  		}
-		xmlhttp.onreadystatechange=function()
-  		{
-  			if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    		{
-    			xmlDoc=xmlhttp.responseText;
-    			result = xmlDoc
-    			callback(result)
-    		}
-  		}
-		xmlhttp.open("GET",url,true);
-		xmlhttp.send();
 	}
 	
 	var delSubVote = function(id)
 	{
-		votesTable = document.getElementById("sub-votes") 
-		votesTable = votesTable.childNodes[0]
+		votesTable = document.getElementById("sub-table") 
 		node = document.getElementById(id)
 		votesTable.removeChild(node)
-	}
-	
-	var nullCheck = function(value)
-	{
-		var patrn = /^\s*$/
-		if(value == null || patrn.exec(value))
-		{
-			return false
-		}
-		
-		return true;
-	}
-	
-	var numCheck = function(value)
-	{
-		var regExp = /^[1-9]\d*$/
-		if(value == null || !regExp.exec(value))
-		{
-			return false;
-		}
-		
-		return true;
 	}
 	
 	var check = function()
@@ -114,8 +62,9 @@
 		}
 		
 		return true;
-		
 	}
+	
+	
 </script>
 
 <link rel="stylesheet" type="text/css" href="/image/reset.css"
@@ -188,10 +137,6 @@
     	</td>
     </tr>
 </table>
-
-
-	
-
 </fieldset>
 </form>				
 </div>
@@ -202,7 +147,28 @@
 </div>
 {% include 'bottom.html' %}</div>
 </div>
+ <div id = "comment-tableHeader">
+<!--
+<table class="table-sub-votes" id="sub-table">
+   <tr >
+      <td>
+          <label class="label">sub-name</label>
+      </td>
+      <td>
+          <label class="label">sub-socre</label>
+      </td>
+      <td></td>
+   </tr>
+</table>
+-->
+</div>
 
-
+<div id="comment-tableRow">
+<!--
+<td><input class="text-medium" name=""></td>
+<td><input class="text-small" name=""></td>
+<td><a href="">delete</a></td>
+</div>
+-->
 </body>
 </html>
