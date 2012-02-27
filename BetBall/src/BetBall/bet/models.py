@@ -79,7 +79,7 @@ class Vote(models.Model):
     state = models.CharField(max_length=2)
     name = models.CharField(max_length=100)
     score = models.DecimalField(max_digits=5, decimal_places=2)
-    memo = models.CharField(max_length=500,null=True)
+    memo = models.CharField(max_length=500)
     
 class VoteColumn(models.Model):
     vote = models.ForeignKey(Vote)

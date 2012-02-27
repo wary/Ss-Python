@@ -4,6 +4,7 @@ from BetBall.bet.models import Vote, Gambler, VoteColumn, VoteDetail
 from django.http import HttpResponse
 from django.template import Context, loader, RequestContext
 import re
+import datetime
 
 '''
 for all actions of vote
@@ -39,8 +40,13 @@ def saveOrUpdateVote(request):
             subVoteMap[count] = subVote
     
     vote = Vote(**voteMap)
+    vote.votedate = datetime.datetime.now()
+    vote.gambler = request.session['gambler']
+    vote.save()
     for v in subVoteMap.values():
-        print v
+        voteColumn = VoteColumn(**v)
+        voteColumn.vote = vote
+        voteColumn.save()
         
     context = Context({'vote':vote,'session':request.session,'result':result})
     template = loader.get_template("new_votes.htm")

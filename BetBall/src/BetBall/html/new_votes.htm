@@ -8,15 +8,16 @@
 <meta name="robots" content="INDEX,FOLLOW" />
 <script type="text/javascript" src="/image/lei.js"></script>
 <script type="text/javascript">
-	var count = 1;
-	
+	var count = 0;
 	
 	window.onload = function()
 	{
+		count = document.getElementsByClassName("sub-table-row").length
 		result = document.getElementById("result").value
 		if(nullCheck(result))
 		{
 			alert(result)
+			window.location.href = "/newVote/"
 		}
 	}
 		
@@ -32,10 +33,10 @@
 		
 		var newTr = document.createElement("tr")
 		newTr.setAttribute("id",count)
-		newTr.innerHTML = getComment("comment-tableRow")
-		tagA = newTr.getElementsByTagName("a")[0]
-		tagA.setAttribute("href","javascript:delSubVote('"+count+"')")
+		newTr.setAttribute("class","sub-table-row")
+		newTr.innerHTML = getComment("comment-tableRow").replace(new RegExp('count','gm'),count.toString())
 		votesTable.appendChild(newTr)
+		count++;
 	}
 	
 	var delSubVote = function(id)
@@ -43,6 +44,10 @@
 		votesTable = document.getElementById("sub-table") 
 		node = document.getElementById(id)
 		votesTable.removeChild(node)
+		if(document.getElementsByClassName("sub-table-row").length == 0)
+		{
+			document.getElementById("sub-votes").removeChild(document.getElementById("sub-table"))
+		}
 	}
 	
 	var check = function()
@@ -59,6 +64,39 @@
 		{
 			alert("score must be a number")
 			return false
+		}
+		
+		var subTable = document.getElementById("sub-table")
+		if(subTable != null)
+		{
+			var subNames = subTable.getElementsByClassName("text-medium")
+			for(var i=0; i<subNames.length; i++)
+			{
+				if(!nullCheck(subNames[i].value))
+				{
+					alert('sub vote name can\'t be null')
+					return false;
+				}
+			}
+			
+			var subScores = subTable.getElementsByClassName("text-small")
+			var sumScore = 0;
+			for(var i=0; i<subScores.length; i++)
+			{
+				var subScore = subScores[i].value
+				if(!numCheck(subScore))
+				{
+					alert('sub vote score must be a number')
+					return false
+				}
+				sumScore += parseInt(subScore)
+			}
+			
+			if(sumScore != parseInt(score))
+			{
+				alert('sum of sub votes\' score must equal the vote\'s socre ')
+				return false
+			}
 		}
 		
 		return true;
@@ -165,10 +203,10 @@
 
 <div id="comment-tableRow">
 <!--
-<td><input class="text-medium" name=""></td>
-<td><input class="text-small" name=""></td>
-<td><a href="">delete</a></td>
-</div>
+<td><input class="text-medium" name="subVotecount-name"></td>
+<td><input class="text-small" name="subVotecount-score"></td>
+<td><a href="javascript:delSubVote('count')">delete</a></td>
 -->
+</div>
 </body>
 </html>
