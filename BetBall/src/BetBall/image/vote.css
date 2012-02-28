@@ -87,4 +87,25 @@
 	border-top:2px solid #D4D0C8;
 }
 
+.votes-table table,.votes-table tr,.votes-table td,.votes-table th
+{
+    border: 1px solid #D4DDCC;
+    text-align :center;
+    padding:5px;
+}
+
+.votes-table table
+{
+    width:100%;
+}
+
+.votes-table th
+{
+    font-weight:bold;
+    background-color:#D4D0C8;
+}
+
+
+
+
 

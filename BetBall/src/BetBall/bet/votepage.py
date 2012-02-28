@@ -12,14 +12,16 @@ for all actions of vote
 votePatt = re.compile("^vote-(\w+)$")
 subVotePatt = re.compile("^subVote(\d+)-(\w+)$")
 
-def goVotePage(request):
-    context = Context({'session':request.session});
-    template = loader.get_template("votes.htm")
-    return HttpResponse(template.render(context));
 
 def goNewVotePage(request):
     context = Context({'session':request.session})
     template = loader.get_template("new_votes.htm")
+    return HttpResponse(template.render(context))
+
+def votes(request):
+    votes = Vote.objects.filter(state = '10')
+    context = Context({'session':request.session,'votes':votes})
+    template=loader.get_template("votes.htm")
     return HttpResponse(template.render(context))
 
 def saveOrUpdateVote(request):
@@ -42,6 +44,7 @@ def saveOrUpdateVote(request):
     vote = Vote(**voteMap)
     vote.votedate = datetime.datetime.now()
     vote.gambler = request.session['gambler']
+    vote.result = vote.result or 0
     vote.save()
     for v in subVoteMap.values():
         voteColumn = VoteColumn(**v)
