@@ -89,7 +89,7 @@
 
 .votes-table table,.votes-table tr,.votes-table td,.votes-table th
 {
-    border: 1px solid #D4DDCC;
+    border: 2px solid #D4D0C8;
     text-align :center;
     padding:5px;
 }
@@ -102,7 +102,8 @@
 .votes-table th
 {
     font-weight:bold;
-    background-color:#D4D0C8;
+    background-color:#C5003D;
+    color:#ffffff;
 }
 
 

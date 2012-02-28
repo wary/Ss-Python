@@ -86,6 +86,7 @@ class VoteColumn(models.Model):
     vote = models.ForeignKey(Vote)
     name = models.CharField(max_length=100)
     score = models.DecimalField(max_digits=5, decimal_places=2)
+    result = models.DecimalField(max_digits=5, decimal_places=2)
     
 class VoteDetail(models.Model):
     voter = models.ForeignKey(Gambler)

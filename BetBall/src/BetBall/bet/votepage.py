@@ -24,6 +24,19 @@ def votes(request):
     template=loader.get_template("votes.htm")
     return HttpResponse(template.render(context))
 
+def voteVote(request):
+    id = request.GET['id']
+    if id:
+        vote = Vote.objects.filter(id=id)
+        if vote:
+            subVotes = VoteColumn.objects.filter(vote=vote)
+            if not subVotes :
+                subVotes = list(subVotes).append(vote)
+            context = Context({'session':request.session,'subVotes':subVotes,"vote":vote})
+            template=loader.get_template("voteVote.htm")
+            return HttpResponse(template.render(context))
+    return HttpResponse("error")
+
 def saveOrUpdateVote(request):
     result = 'success'
     voteMap = {}
@@ -49,6 +62,7 @@ def saveOrUpdateVote(request):
     for v in subVoteMap.values():
         voteColumn = VoteColumn(**v)
         voteColumn.vote = vote
+        voteColumn.result = voteColumn.result or 0
         voteColumn.save()
         
     context = Context({'vote':vote,'session':request.session,'result':result})
